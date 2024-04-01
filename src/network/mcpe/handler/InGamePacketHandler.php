@@ -79,6 +79,7 @@ use pocketmine\network\mcpe\protocol\PlayerAuthInputPacket;
 use pocketmine\network\mcpe\protocol\PlayerHotbarPacket;
 use pocketmine\network\mcpe\protocol\PlayerInputPacket;
 use pocketmine\network\mcpe\protocol\PlayerSkinPacket;
+use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\network\mcpe\protocol\RequestChunkRadiusPacket;
 use pocketmine\network\mcpe\protocol\ServerSettingsRequestPacket;
 use pocketmine\network\mcpe\protocol\SetActorMotionPacket;
@@ -822,6 +823,9 @@ class InGamePacketHandler extends ChunkRequestPacketHandler{
 	}
 
 	public function handleItemFrameDropItem(ItemFrameDropItemPacket $packet) : bool{
+		if($this->session->getProtocolId() >= ProtocolInfo::PROTOCOL_1_20_70){
+			return false;
+		}
 		$blockPosition = $packet->blockPosition;
 		$block = $this->player->getWorld()->getBlockAt($blockPosition->getX(), $blockPosition->getY(), $blockPosition->getZ());
 		if($block instanceof ItemFrame && $block->getFramedItem() !== null){
