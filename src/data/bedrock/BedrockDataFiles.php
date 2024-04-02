@@ -68,11 +68,13 @@ final class BedrockDataFiles{
 	public const R12_TO_CURRENT_BLOCK_MAP_1_20_30_BIN = BEDROCK_DATA_PATH . '/r12_to_current_block_map-1.20.30.bin';
 	public const R12_TO_CURRENT_BLOCK_MAP_1_20_40_BIN = BEDROCK_DATA_PATH . '/r12_to_current_block_map-1.20.40.bin';
 	public const R12_TO_CURRENT_BLOCK_MAP_1_20_50_BIN = BEDROCK_DATA_PATH . '/r12_to_current_block_map-1.20.50.bin';
+	public const R12_TO_CURRENT_BLOCK_MAP_1_20_60_BIN = BEDROCK_DATA_PATH . '/r12_to_current_block_map-1.20.60.bin';
 	public const R12_TO_CURRENT_BLOCK_MAP_BIN = BEDROCK_DATA_PATH . '/r12_to_current_block_map.bin';
 	public const R16_TO_CURRENT_ITEM_MAP_JSON = BEDROCK_DATA_PATH . '/r16_to_current_item_map.json';
 	public const REQUIRED_ITEM_LIST_1_20_0_JSON = BEDROCK_DATA_PATH . '/required_item_list-1.20.0.json';
 	public const REQUIRED_ITEM_LIST_1_20_10_JSON = BEDROCK_DATA_PATH . '/required_item_list-1.20.10.json';
 	public const REQUIRED_ITEM_LIST_1_20_40_JSON = BEDROCK_DATA_PATH . '/required_item_list-1.20.40.json';
 	public const REQUIRED_ITEM_LIST_1_20_50_JSON = BEDROCK_DATA_PATH . '/required_item_list-1.20.50.json';
+	public const REQUIRED_ITEM_LIST_1_20_60_JSON = BEDROCK_DATA_PATH . '/required_item_list-1.20.60.json';
 	public const REQUIRED_ITEM_LIST_JSON = BEDROCK_DATA_PATH . '/required_item_list.json';
 }

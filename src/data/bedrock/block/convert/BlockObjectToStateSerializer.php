@@ -556,10 +556,10 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::ACACIA_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::ACACIA_TRAPDOOR)));
 		$this->map(Blocks::ACACIA_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::ACACIA_WALL_SIGN)));
 		$this->mapLog(Blocks::ACACIA_LOG(), Ids::ACACIA_LOG, Ids::STRIPPED_ACACIA_LOG);
+		$this->mapLog(Blocks::ACACIA_WOOD(), Ids::ACACIA_WOOD, Ids::STRIPPED_ACACIA_WOOD);
 		$this->mapSimple(Blocks::ACACIA_FENCE(), Ids::ACACIA_FENCE);
 		$this->mapSimple(Blocks::ACACIA_PLANKS(), Ids::ACACIA_PLANKS);
-		$this->map(Blocks::ACACIA_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::ACACIA_SLAB, Ids::ACACIA_DOUBLE_SLAB));
-		$this->mapLog(Blocks::ACACIA_WOOD(), Ids::ACACIA_WOOD, Ids::STRIPPED_ACACIA_WOOD);
+		$this->mapSlab(Blocks::ACACIA_SLAB(), Ids::ACACIA_SLAB, Ids::ACACIA_DOUBLE_SLAB);
 
 		$this->map(Blocks::BIRCH_BUTTON(), fn(WoodenButton $block) => Helper::encodeButton($block, new Writer(Ids::BIRCH_BUTTON)));
 		$this->map(Blocks::BIRCH_DOOR(), fn(WoodenDoor $block) => Helper::encodeDoor($block, new Writer(Ids::BIRCH_DOOR)));
@@ -569,11 +569,11 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::BIRCH_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::BIRCH_TRAPDOOR)));
 		$this->map(Blocks::BIRCH_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::BIRCH_WALL_SIGN)));
 		$this->mapLog(Blocks::BIRCH_LOG(), Ids::BIRCH_LOG, Ids::STRIPPED_BIRCH_LOG);
+		$this->mapLog(Blocks::BIRCH_WOOD(), Ids::BIRCH_WOOD, Ids::STRIPPED_BIRCH_WOOD);
 		$this->mapSimple(Blocks::BIRCH_FENCE(), Ids::BIRCH_FENCE);
 		$this->mapSimple(Blocks::BIRCH_PLANKS(), Ids::BIRCH_PLANKS);
+		$this->mapSlab(Blocks::BIRCH_SLAB(), Ids::BIRCH_SLAB, Ids::BIRCH_DOUBLE_SLAB);
 		$this->mapStairs(Blocks::BIRCH_STAIRS(), Ids::BIRCH_STAIRS);
-		$this->map(Blocks::BIRCH_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::BIRCH_SLAB, Ids::BIRCH_DOUBLE_SLAB));
-		$this->mapLog(Blocks::BIRCH_WOOD(), Ids::BIRCH_WOOD, Ids::STRIPPED_BIRCH_WOOD);
 
 		$this->map(Blocks::CHERRY_BUTTON(), fn(Button $block) => Helper::encodeButton($block, new Writer(Ids::CHERRY_BUTTON)));
 		$this->map(Blocks::CHERRY_DOOR(), fn(Door $block) => Helper::encodeDoor($block, new Writer(Ids::CHERRY_DOOR)));
@@ -621,11 +621,11 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::DARK_OAK_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::DARK_OAK_TRAPDOOR)));
 		$this->map(Blocks::DARK_OAK_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::DARKOAK_WALL_SIGN)));
 		$this->mapLog(Blocks::DARK_OAK_LOG(), Ids::DARK_OAK_LOG, Ids::STRIPPED_DARK_OAK_LOG);
+		$this->mapLog(Blocks::DARK_OAK_WOOD(), Ids::DARK_OAK_WOOD, Ids::STRIPPED_DARK_OAK_WOOD);
 		$this->mapSimple(Blocks::DARK_OAK_FENCE(), Ids::DARK_OAK_FENCE);
 		$this->mapSimple(Blocks::DARK_OAK_PLANKS(), Ids::DARK_OAK_PLANKS);
+		$this->mapSlab(Blocks::DARK_OAK_SLAB(), Ids::DARK_OAK_SLAB, Ids::DARK_OAK_DOUBLE_SLAB);
 		$this->mapStairs(Blocks::DARK_OAK_STAIRS(), Ids::DARK_OAK_STAIRS);
-		$this->map(Blocks::DARK_OAK_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::DARK_OAK_SLAB, Ids::DARK_OAK_DOUBLE_SLAB));
-		$this->mapLog(Blocks::DARK_OAK_WOOD(), Ids::DARK_OAK_WOOD, Ids::STRIPPED_DARK_OAK_WOOD);
 
 		$this->map(Blocks::JUNGLE_BUTTON(), fn(WoodenButton $block) => Helper::encodeButton($block, new Writer(Ids::JUNGLE_BUTTON)));
 		$this->map(Blocks::JUNGLE_DOOR(), fn(WoodenDoor $block) => Helper::encodeDoor($block, new Writer(Ids::JUNGLE_DOOR)));
@@ -635,11 +635,11 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::JUNGLE_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::JUNGLE_TRAPDOOR)));
 		$this->map(Blocks::JUNGLE_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::JUNGLE_WALL_SIGN)));
 		$this->mapLog(Blocks::JUNGLE_LOG(), Ids::JUNGLE_LOG, Ids::STRIPPED_JUNGLE_LOG);
+		$this->mapLog(Blocks::JUNGLE_WOOD(), Ids::JUNGLE_WOOD, Ids::STRIPPED_JUNGLE_WOOD);
 		$this->mapSimple(Blocks::JUNGLE_FENCE(), Ids::JUNGLE_FENCE);
 		$this->mapSimple(Blocks::JUNGLE_PLANKS(), Ids::JUNGLE_PLANKS);
+		$this->mapSlab(Blocks::JUNGLE_SLAB(), Ids::JUNGLE_SLAB, Ids::JUNGLE_DOUBLE_SLAB);
 		$this->mapStairs(Blocks::JUNGLE_STAIRS(), Ids::JUNGLE_STAIRS);
-		$this->map(Blocks::JUNGLE_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::JUNGLE_SLAB, Ids::JUNGLE_DOUBLE_SLAB));
-		$this->mapLog(Blocks::JUNGLE_WOOD(), Ids::JUNGLE_WOOD, Ids::STRIPPED_JUNGLE_WOOD);
 
 		$this->map(Blocks::MANGROVE_BUTTON(), fn(Button $block) => Helper::encodeButton($block, new Writer(Ids::MANGROVE_BUTTON)));
 		$this->map(Blocks::MANGROVE_DOOR(), fn(Door $block) => Helper::encodeDoor($block, new Writer(Ids::MANGROVE_DOOR)));
@@ -673,11 +673,11 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::OAK_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::TRAPDOOR)));
 		$this->map(Blocks::OAK_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::WALL_SIGN)));
 		$this->mapLog(Blocks::OAK_LOG(), Ids::OAK_LOG, Ids::STRIPPED_OAK_LOG);
+		$this->mapLog(Blocks::OAK_WOOD(), Ids::OAK_WOOD, Ids::STRIPPED_OAK_WOOD);
 		$this->mapSimple(Blocks::OAK_FENCE(), Ids::OAK_FENCE);
 		$this->mapSimple(Blocks::OAK_PLANKS(), Ids::OAK_PLANKS);
+		$this->mapSlab(Blocks::OAK_SLAB(), Ids::OAK_SLAB, Ids::OAK_DOUBLE_SLAB);
 		$this->mapStairs(Blocks::OAK_STAIRS(), Ids::OAK_STAIRS);
-		$this->map(Blocks::OAK_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::OAK_SLAB, Ids::OAK_DOUBLE_SLAB));
-		$this->mapLog(Blocks::OAK_WOOD(), Ids::OAK_WOOD, Ids::STRIPPED_OAK_WOOD);
 
 		$this->map(Blocks::SPRUCE_BUTTON(), fn(WoodenButton $block) => Helper::encodeButton($block, new Writer(Ids::SPRUCE_BUTTON)));
 		$this->map(Blocks::SPRUCE_DOOR(), fn(WoodenDoor $block) => Helper::encodeDoor($block, new Writer(Ids::SPRUCE_DOOR)));
@@ -687,11 +687,11 @@ final class BlockObjectToStateSerializer implements BlockStateSerializer{
 		$this->map(Blocks::SPRUCE_TRAPDOOR(), fn(WoodenTrapdoor $block) => Helper::encodeTrapdoor($block, new Writer(Ids::SPRUCE_TRAPDOOR)));
 		$this->map(Blocks::SPRUCE_WALL_SIGN(), fn(WallSign $block) => Helper::encodeWallSign($block, new Writer(Ids::SPRUCE_WALL_SIGN)));
 		$this->mapLog(Blocks::SPRUCE_LOG(), Ids::SPRUCE_LOG, Ids::STRIPPED_SPRUCE_LOG);
+		$this->mapLog(Blocks::SPRUCE_WOOD(), Ids::SPRUCE_WOOD, Ids::STRIPPED_SPRUCE_WOOD);
 		$this->mapSimple(Blocks::SPRUCE_FENCE(), Ids::SPRUCE_FENCE);
 		$this->mapSimple(Blocks::SPRUCE_PLANKS(), Ids::SPRUCE_PLANKS);
+		$this->mapSlab(Blocks::SPRUCE_SLAB(), Ids::SPRUCE_SLAB, Ids::SPRUCE_DOUBLE_SLAB);
 		$this->mapStairs(Blocks::SPRUCE_STAIRS(), Ids::SPRUCE_STAIRS);
-		$this->map(Blocks::SPRUCE_SLAB(), fn(Slab $block) => Helper::encodeSlab($block, Ids::SPRUCE_SLAB, Ids::SPRUCE_DOUBLE_SLAB));
-		$this->mapLog(Blocks::SPRUCE_WOOD(), Ids::SPRUCE_WOOD, Ids::STRIPPED_SPRUCE_WOOD);
 
 		$this->map(Blocks::WARPED_BUTTON(), fn(Button $block) => Helper::encodeButton($block, new Writer(Ids::WARPED_BUTTON)));
 		$this->map(Blocks::WARPED_DOOR(), fn(Door $block) => Helper::encodeDoor($block, new Writer(Ids::WARPED_DOOR)));
