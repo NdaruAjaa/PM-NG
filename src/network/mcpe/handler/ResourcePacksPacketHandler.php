@@ -82,13 +82,14 @@ class ResourcePacksPacketHandler extends ChunkRequestPacketHandler{
 	 * @phpstan-param \Closure() : void     $completionCallback
 	 */
 	public function __construct(
-		NetworkSession $session,
+		protected NetworkSession $session,
 		private array $resourcePackStack,
 		private array $encryptionKeys,
 		private bool $mustAccept,
 		private \Closure $completionCallback
 	){
 		parent::__construct($session);
+
 		$this->requestQueue = new \SplQueue();
 		foreach($resourcePackStack as $pack){
 			$this->resourcePacksById[$pack->getPackId()] = $pack;
