@@ -109,6 +109,7 @@ use pocketmine\world\particle\BlockBreakParticle;
 use pocketmine\world\particle\BlockParticle;
 use pocketmine\world\particle\ItemParticle;
 use pocketmine\world\particle\Particle;
+use pocketmine\world\particle\ProtocolParticle;
 use pocketmine\world\sound\BlockPlaceSound;
 use pocketmine\world\sound\BlockSound;
 use pocketmine\world\sound\Sound;
@@ -303,7 +304,7 @@ class World implements ChunkManager{
 	 */
 	private array $changedBlocks = [];
 
-	/** @phpstan-var ReversePriorityQueue<int, Vector3> */
+	/** @phpstan-var ReversePriorityQueue<int, array{Vector3, int}> */
 	private ReversePriorityQueue $scheduledBlockUpdateQueue;
 	/**
 	 * @var int[] blockHash => tick delay
@@ -764,10 +765,12 @@ class World implements ChunkManager{
 			$players = $ev->getRecipients();
 		}
 
-		if($particle instanceof BlockParticle || $particle instanceof ItemParticle){
+		if($particle instanceof BlockParticle || $particle instanceof ItemParticle || $particle instanceof ProtocolParticle){
 			$closure = function(TypeConverter $typeConverter) use ($particle, $pos) : array{
 				if($particle instanceof ItemParticle){
 					$particle->setItemTranslator($typeConverter->getItemTranslator());
+				}elseif($particle instanceof ProtocolParticle){
+					$particle->setProtocolId($typeConverter->getProtocolId());
 				}else{
 					$particle->setBlockTranslator($typeConverter->getBlockTranslator());
 				}
@@ -1046,9 +1049,6 @@ class World implements ChunkManager{
 
 			foreach([0, 1] as $layer){
 				$block = $this->getBlockAtLayer($x, $y, $z, $layer);
-				if($block->getTypeId() === BlockTypeIds::AIR){
-					break;
-				}
 
 				if(BlockUpdateEvent::hasHandlers()){
 					$ev = new BlockUpdateEvent($block);
@@ -2298,9 +2298,9 @@ class World implements ChunkManager{
 			return false;
 		}
 
-		//if($blockClicked->getTypeId() === BlockTypeIds::AIR){
-		//	return false;
-		//}
+		if($blockClicked->getTypeId() === BlockTypeIds::AIR){
+			return false;
+		}
 
 		if($player !== null){
 			$ev = new PlayerInteractEvent($player, $item, $blockClicked, $clickVector, $face, PlayerInteractEvent::RIGHT_CLICK_BLOCK);
@@ -2331,7 +2331,7 @@ class World implements ChunkManager{
 		$hand = $item->getBlock($face);
 		$hand->position($this, $blockReplace->getPosition()->x, $blockReplace->getPosition()->y, $blockReplace->getPosition()->z);
 
-		if($blockClicked->getTypeId() !== BlockTypeIds::AIR && $hand->canBePlacedAt($blockClicked, $clickVector, $face, true)){
+		if($hand->canBePlacedAt($blockClicked, $clickVector, $face, true)){
 			$blockReplace = $blockClicked;
 			//TODO: while this mimics the vanilla behaviour with replaceable blocks, we should really pass some other
 			//value like NULL and let place() deal with it. This will look like a bug to anyone who doesn't know about
@@ -2758,7 +2758,7 @@ class World implements ChunkManager{
 
 	public function isChunkPopulated(int $x, int $z) : bool{
 		$chunk = $this->loadChunk($x, $z);
-		return $chunk !== null ? $chunk->isPopulated() : false;
+		return $chunk !== null && $chunk->isPopulated();
 	}
 
 	/**

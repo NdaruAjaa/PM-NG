@@ -21,11 +21,26 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\block;
+namespace pocketmine\block\utils;
 
-/**
- * @deprecated
- */
-class WeightedPressurePlateLight extends WeightedPressurePlate{
+use pocketmine\data\runtime\RuntimeDataDescriber;
 
+trait LightableTrait{
+	protected bool $lit = false;
+
+	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
+		$w->bool($this->lit);
+	}
+
+	public function isLit() : bool{
+		return $this->lit;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function setLit(bool $lit = true) : self{
+		$this->lit = $lit;
+		return $this;
+	}
 }

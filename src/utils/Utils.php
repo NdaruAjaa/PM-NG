@@ -35,6 +35,7 @@ use pocketmine\thread\ThreadCrashInfoFrame;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use function array_combine;
+use function array_keys;
 use function array_map;
 use function array_reverse;
 use function array_values;
@@ -173,16 +174,17 @@ final class Utils{
 	}
 
 	/**
-	 * @phpstan-template T of object
+	 * @phpstan-template TKey of array-key
+	 * @phpstan-template TValue of object
 	 *
 	 * @param object[] $array
-	 * @phpstan-param T[] $array
+	 * @phpstan-param array<TKey, TValue> $array
 	 *
 	 * @return object[]
-	 * @phpstan-return T[]
+	 * @phpstan-return array<TKey, TValue>
 	 */
 	public static function cloneObjectArray(array $array) : array{
-		/** @phpstan-var \Closure(T) : T $callback */
+		/** @phpstan-var \Closure(TValue) : TValue $callback */
 		$callback = self::cloneCallback();
 		return array_map($callback, $array);
 	}
@@ -673,5 +675,19 @@ final class Utils{
 
 		//jit not available
 		return null;
+	}
+
+	/**
+	 *  Array map implementation that preserves keys.
+	 *
+	 *  @phpstan-template TKeyType
+	 *  @phpstan-template TValueType
+	 *  @phpstan-template TResultType
+	 *  @phpstan-param callable(TValueType) : TResultType $callback
+	 *  @phpstan-param array<TKeyType, TValueType> $array
+	 *  @phpstan-return array<TKeyType, TResultType>
+	 */
+	public static function arrayMapPreserveKeys(callable $callback, array $array) : array {
+		return array_combine(array_keys($array), array_map($callback, $array));
 	}
 }

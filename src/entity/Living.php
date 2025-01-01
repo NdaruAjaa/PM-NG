@@ -38,6 +38,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\inventory\ArmorInventory;
 use pocketmine\inventory\CallbackInventoryListener;
+use pocketmine\inventory\Inventory;
 use pocketmine\item\Armor;
 use pocketmine\item\Durable;
 use pocketmine\item\enchantment\Enchantment;
@@ -124,12 +125,17 @@ abstract class Living extends Entity{
 	protected bool $sneaking = false;
 	protected bool $gliding = false;
 	protected bool $swimming = false;
+	protected bool $crawling = false;
 
 	protected function getInitialDragMultiplier() : float{ return 0.02; }
 
 	protected function getInitialGravity() : float{ return 0.08; }
 
 	abstract public function getName() : string;
+
+	public function canBeRenamed() : bool{
+		return true;
+	}
 
 	protected function initEntity(CompoundTag $nbt) : void{
 		parent::initEntity($nbt);
@@ -264,11 +270,21 @@ abstract class Living extends Entity{
 		$this->recalculateSize();
 	}
 
+	public function isCrawling() : bool{
+		return $this->crawling;
+	}
+
+	public function setCrawling(bool $value = true) : void{
+		$this->crawling = $value;
+		$this->networkPropertiesDirty = true;
+		$this->recalculateSize();
+	}
+
 	private function recalculateSize() : void{
 		$size = $this->getInitialSizeInfo();
-		if($this->isSwimming() || $this->isGliding()){
+		if($this->isSwimming() || $this->isGliding() || $this->isCrawling()){
 			$width = $size->getWidth();
-			$this->setSize((new EntitySizeInfo($width, $width, $width * 0.9))->scale($this->getScale()));
+			$this->setSize((new EntitySizeInfo(5 / 8, $width, 5 / 8 * 0.9))->scale($this->getScale()));
 		}elseif($this->isSneaking()){
 			$this->setSize((new EntitySizeInfo(3 / 4 * $size->getHeight(), $size->getWidth(), 3 / 4 * $size->getEyeHeight()))->scale($this->getScale()));
 		}else{
@@ -559,26 +575,33 @@ abstract class Living extends Entity{
 			return;
 		}
 
-		$this->attackTime = $source->getAttackCooldown();
+		if($this->attackTime <= 0){
+			//this logic only applies if the entity was cold attacked
 
-		if($source instanceof EntityDamageByChildEntityEvent){
-			$e = $source->getChild();
-			if($e !== null){
-				$motion = $e->getMotion();
-				$this->knockBack($motion->x, $motion->z, $source->getKnockBack(), $source->getVerticalKnockBackLimit());
+			$this->attackTime = $source->getAttackCooldown();
+
+			if($source instanceof EntityDamageByChildEntityEvent){
+				$e = $source->getChild();
+				if($e !== null){
+					$motion = $e->getMotion();
+					$this->knockBack($motion->x, $motion->z, $source->getKnockBack(), $source->getVerticalKnockBackLimit());
+				}
+			}elseif($source instanceof EntityDamageByEntityEvent){
+				$e = $source->getDamager();
+				if($e !== null){
+					$deltaX = $this->location->x - $e->location->x;
+					$deltaZ = $this->location->z - $e->location->z;
+					$this->knockBack($deltaX, $deltaZ, $source->getKnockBack(), $source->getVerticalKnockBackLimit());
+				}
 			}
-		}elseif($source instanceof EntityDamageByEntityEvent){
-			$e = $source->getDamager();
-			if($e !== null){
-				$deltaX = $this->location->x - $e->location->x;
-				$deltaZ = $this->location->z - $e->location->z;
-				$this->knockBack($deltaX, $deltaZ, $source->getKnockBack(), $source->getVerticalKnockBackLimit());
+
+			if($this->isAlive()){
+				$this->doHitAnimation();
 			}
 		}
 
 		if($this->isAlive()){
 			$this->applyPostDamageEffects($source);
-			$this->doHitAnimation();
 		}
 	}
 
@@ -890,6 +913,7 @@ abstract class Living extends Entity{
 		$properties->setGenericFlag(EntityMetadataFlags::SPRINTING, $this->sprinting);
 		$properties->setGenericFlag(EntityMetadataFlags::GLIDING, $this->gliding);
 		$properties->setGenericFlag(EntityMetadataFlags::SWIMMING, $this->swimming);
+		$properties->setGenericFlag(EntityMetadataFlags::CRAWLING, $this->crawling);
 	}
 
 	protected function onDispose() : void{

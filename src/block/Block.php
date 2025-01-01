@@ -408,7 +408,7 @@ class Block{
 	}
 
 	/**
-	 * AKA: Block->isPlaceable
+	 * Returns whether this block can be placed when obtained as an item.
 	 */
 	public function canBePlaced() : bool{
 		return true;
@@ -595,16 +595,28 @@ class Block{
 		return $this->getLightFilter() > 0;
 	}
 
+	/**
+	 * Returns whether this block allows any light to pass through it.
+	 */
 	public function isTransparent() : bool{
 		return false;
 	}
 
+	/**
+	 * @deprecated TL;DR: Don't use this function. Its results are confusing and inconsistent.
+	 *
+	 * No one is sure what the meaning of this property actually is. It's borrowed from Minecraft Java Edition, and is
+	 * used by various blocks for support checks.
+	 *
+	 * Things like signs and banners are considered "solid" despite having no collision box, and things like skulls and
+	 * flower pots are considered non-solid despite obviously being "solid" in the conventional, real-world sense.
+	 */
 	public function isSolid() : bool{
 		return true;
 	}
 
 	/**
-	 * AKA: Block->isFlowable
+	 * Returns whether this block can be destroyed by liquid flowing into its cell.
 	 */
 	public function canBeFlowedInto() : bool{
 		return false;
@@ -1018,7 +1030,7 @@ class Block{
 	}
 
 	public function isLayerSupported(int $layer) : bool{
-		return $layer === 0;
+		return $layer === 0 || ($this->canBeSnowlogged() && $layer === 1);
 	}
 
 	/**
@@ -1045,5 +1057,13 @@ class Block{
 	 */
 	public function isWaterlogged() : bool{
 		return $this->getBlockLayer(1) instanceof Water;
+	}
+
+	public function canBeSnowlogged() : bool{
+		return false;
+	}
+
+	public function isSnowlogged() : bool{
+		return $this instanceof SnowLayer && $this->getBlockLayer(1)->canBeSnowlogged();
 	}
 }

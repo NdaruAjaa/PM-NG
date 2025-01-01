@@ -81,7 +81,7 @@ class SnowLayer extends Flowable implements Fallable{
 	}
 
 	private function canBeSupportedAt(Block $block) : bool{
-		return $block->getAdjacentSupportType(Facing::DOWN) === SupportType::FULL;
+		return true;
 	}
 
 	public function place(BlockTransaction $tx, Item $item, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector, ?Player $player = null) : bool{
@@ -92,7 +92,13 @@ class SnowLayer extends Flowable implements Fallable{
 			$this->layers = $blockReplace->layers + 1;
 		}
 		if($this->canBeSupportedAt($blockReplace)){
-			return parent::place($tx, $item, $blockReplace, $blockClicked, $face, $clickVector, $player);
+			parent::place($tx, $item, $blockReplace, $blockClicked, $face, $clickVector, $player);
+			if($blockReplace->canBeSnowlogged()){
+				$tx->addBlock($blockReplace->position, $blockReplace->setLayer(1));
+			}elseif($blockReplace->isSnowlogged()){
+				$tx->addBlock($blockReplace->position, $blockReplace->getBlockLayer(1));
+			}
+			return true;
 		}
 
 		return false;

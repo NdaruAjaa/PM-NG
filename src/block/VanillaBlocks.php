@@ -758,8 +758,8 @@ use function strtolower;
  * @method static Water WATER()
  * @method static WaterCauldron WATER_CAULDRON()
  * @method static NetherVines WEEPING_VINES()
- * @method static WeightedPressurePlateHeavy WEIGHTED_PRESSURE_PLATE_HEAVY()
- * @method static WeightedPressurePlateLight WEIGHTED_PRESSURE_PLATE_LIGHT()
+ * @method static WeightedPressurePlate WEIGHTED_PRESSURE_PLATE_HEAVY()
+ * @method static WeightedPressurePlate WEIGHTED_PRESSURE_PLATE_LIGHT()
  * @method static Wheat WHEAT()
  * @method static Flower WHITE_TULIP()
  * @method static WitherRose WITHER_ROSE()
@@ -788,7 +788,7 @@ final class VanillaBlocks{
 	}
 
 	protected static function setup() : void{
-		$railBreakInfo = new Info(new BlockBreakInfo(0.7));
+		$railBreakInfo = new Info(new BreakInfo(0.7));
 		self::register("activator_rail", new ActivatorRail(new BID(Ids::ACTIVATOR_RAIL), "Activator Rail", $railBreakInfo));
 		self::register("air", new Air(new BID(Ids::AIR), "Air", new Info(BreakInfo::indestructible(-1.0))));
 		self::register("anvil", new Anvil(new BID(Ids::ANVIL), "Anvil", new Info(BreakInfo::pickaxe(5.0, ToolTier::WOOD, 6000.0))));
@@ -1129,14 +1129,14 @@ final class VanillaBlocks{
 		self::register("lily_pad", new WaterLily(new BID(Ids::LILY_PAD), "Lily Pad", new Info(BreakInfo::instant())));
 
 		$weightedPressurePlateBreakInfo = new Info(BreakInfo::pickaxe(0.5, ToolTier::WOOD));
-		self::register("weighted_pressure_plate_heavy", new WeightedPressurePlateHeavy(
+		self::register("weighted_pressure_plate_heavy", new WeightedPressurePlate(
 			new BID(Ids::WEIGHTED_PRESSURE_PLATE_HEAVY),
 			"Weighted Pressure Plate Heavy",
 			$weightedPressurePlateBreakInfo,
 			deactivationDelayTicks: 10,
 			signalStrengthFactor: 0.1
 		));
-		self::register("weighted_pressure_plate_light", new WeightedPressurePlateLight(
+		self::register("weighted_pressure_plate_light", new WeightedPressurePlate(
 			new BID(Ids::WEIGHTED_PRESSURE_PLATE_LIGHT),
 			"Weighted Pressure Plate Light",
 			$weightedPressurePlateBreakInfo,
@@ -1638,7 +1638,7 @@ final class VanillaBlocks{
 
 		self::register("cave_vines", new CaveVines(new BID(Ids::CAVE_VINES), "Cave Vines", new Info(BreakInfo::instant())));
 
-		self::register("small_dripleaf", new SmallDripleaf(new BID(Ids::SMALL_DRIPLEAF), "Small Dripleaf", new Info(BreakInfo::instant(BlockToolType::SHEARS, toolHarvestLevel: 1))));
+		self::register("small_dripleaf", new SmallDripleaf(new BID(Ids::SMALL_DRIPLEAF), "Small Dripleaf", new Info(BreakInfo::instant(ToolType::SHEARS, toolHarvestLevel: 1))));
 		self::register("big_dripleaf_head", new BigDripleafHead(new BID(Ids::BIG_DRIPLEAF_HEAD), "Big Dripleaf", new Info(BreakInfo::instant())));
 		self::register("big_dripleaf_stem", new BigDripleafStem(new BID(Ids::BIG_DRIPLEAF_STEM), "Big Dripleaf Stem", new Info(BreakInfo::instant())));
 	}

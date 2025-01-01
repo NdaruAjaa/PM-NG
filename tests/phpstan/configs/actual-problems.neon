@@ -651,6 +651,11 @@ parameters:
 			path: ../../../src/network/mcpe/NetworkSession.php
 
 		-
+			message: "#^Parameter \\#1 \\$playerInfo of class pocketmine\\\\event\\\\player\\\\PlayerResourcePackOfferEvent constructor expects pocketmine\\\\player\\\\PlayerInfo, pocketmine\\\\player\\\\PlayerInfo\\|null given\\.$#"
+			count: 1
+			path: ../../../src/network/mcpe/NetworkSession.php
+
+		-
 			message: "#^Parameter \\#1 \\$target of method pocketmine\\\\command\\\\Command\\:\\:testPermissionSilent\\(\\) expects pocketmine\\\\command\\\\CommandSender, pocketmine\\\\player\\\\Player\\|null given\\.$#"
 			count: 1
 			path: ../../../src/network/mcpe/NetworkSession.php
@@ -926,6 +931,11 @@ parameters:
 			path: ../../../src/world/World.php
 
 		-
+			message: "#^Parameter \\#1 \\$x of method pocketmine\\\\world\\\\World\\:\\:getBlockAtLayer\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: ../../../src/world/World.php
+
+		-
 			message: "#^Parameter \\#1 \\$x of method pocketmine\\\\world\\\\World\\:\\:getTileAt\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: ../../../src/world/World.php
@@ -951,6 +961,11 @@ parameters:
 			path: ../../../src/world/World.php
 
 		-
+			message: "#^Parameter \\#2 \\$y of method pocketmine\\\\world\\\\World\\:\\:getBlockAtLayer\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: ../../../src/world/World.php
+
+		-
 			message: "#^Parameter \\#2 \\$y of method pocketmine\\\\world\\\\World\\:\\:getTileAt\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: ../../../src/world/World.php
@@ -972,6 +987,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$z of method pocketmine\\\\world\\\\World\\:\\:getBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: ../../../src/world/World.php
+
+		-
+			message: "#^Parameter \\#3 \\$z of method pocketmine\\\\world\\\\World\\:\\:getBlockAtLayer\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: ../../../src/world/World.php
 
@@ -1069,6 +1089,21 @@ parameters:
 			message: "#^Cannot call method getBiomeId\\(\\) on pocketmine\\\\world\\\\format\\\\Chunk\\|null\\.$#"
 			count: 1
 			path: ../../../src/world/generator/hell/Nether.php
+
+		-
+			message: "#^Offset int does not exist on SplFixedArray\\<float\\>\\|null\\.$#"
+			count: 4
+			path: ../../../src/world/generator/noise/Noise.php
+
+		-
+			message: "#^Parameter \\$q0 of static method pocketmine\\\\world\\\\generator\\\\noise\\\\Noise\\:\\:linearLerp\\(\\) expects float, float\\|null given\\.$#"
+			count: 1
+			path: ../../../src/world/generator/noise/Noise.php
+
+		-
+			message: "#^Parameter \\$q1 of static method pocketmine\\\\world\\\\generator\\\\noise\\\\Noise\\:\\:linearLerp\\(\\) expects float, float\\|null given\\.$#"
+			count: 1
+			path: ../../../src/world/generator/noise/Noise.php
 
 		-
 			message: "#^Cannot call method getBiomeId\\(\\) on pocketmine\\\\world\\\\format\\\\Chunk\\|null\\.$#"

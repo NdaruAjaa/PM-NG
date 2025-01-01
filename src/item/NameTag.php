@@ -21,26 +21,20 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\utils;
+namespace pocketmine\item;
 
-/**
- * This doc-block is generated automatically, do not modify it manually.
- * This must be regenerated whenever registry members are added, removed or changed.
- * @see RegistryTrait::_generateMethodAnnotations()
- *
- * @method static self ONE()
- * @method static self TWO()
- * @method static self THREE()
- */
+use pocketmine\entity\Entity;
+use pocketmine\math\Vector3;
+use pocketmine\player\Player;
 
-class TestEnum{
-	use EnumTrait;
+class NameTag extends Item{
 
-	protected static function setup() : void{
-		self::registerAll(
-			new self("one"),
-			new self("two"),
-			new self("three")
-		);
+	public function onInteractEntity(Player $player, Entity $entity, Vector3 $clickVector) : bool{
+		if($entity->canBeRenamed() && $this->hasCustomName()){
+			$entity->setNameTag($this->getCustomName());
+			$this->pop();
+			return true;
+		}
+		return false;
 	}
 }

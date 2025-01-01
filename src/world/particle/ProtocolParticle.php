@@ -21,11 +21,13 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\block;
+namespace pocketmine\world\particle;
 
-/**
- * @deprecated
- */
-class WeightedPressurePlateHeavy extends WeightedPressurePlate{
+abstract class ProtocolParticle implements Particle{
 
+	protected int $protocolId;
+
+	public function setProtocolId(int $protocolId) : void{
+		$this->protocolId = $protocolId;
+	}
 }

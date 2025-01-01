@@ -21,18 +21,15 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\utils;
+namespace pocketmine\world\sound;
 
-use PHPUnit\Framework\TestCase;
+use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\LevelSoundEventPacket;
+use pocketmine\network\mcpe\protocol\types\LevelSoundEvent;
 
-class EnumTraitTest extends TestCase{
+class ArmorEquipIronSound implements Sound{
 
-	/**
-	 * @doesNotPerformAssertions
-	 */
-	public function testEnumLazyInit() : void{
-		foreach([TestEnum::ONE(), TestEnum::TWO(), TestEnum::THREE()] as $member){
-			//NOOP
-		}
+	public function encode(Vector3 $pos) : array{
+		return [LevelSoundEventPacket::nonActorSound(LevelSoundEvent::ARMOR_EQUIP_IRON, $pos, false)];
 	}
 }
